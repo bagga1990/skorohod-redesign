@@ -823,8 +823,10 @@ input,select,textarea{font:inherit;color:inherit}
   .cats__main{aspect-ratio:4/3}
   .values__nav .small{display:none}
   .rail{grid-auto-columns:72%}
-  .feature{grid-template-columns:1fr}
+  .feature{grid-template-columns:minmax(0,1fr)}
   .feature__media{aspect-ratio:4/3;min-height:0}
+  .feature__body{padding:48px var(--gutter) 56px}
+  .finder{max-width:none}
   .looks{grid-template-columns:1fr 1fr}
   .looks .look:nth-child(3){display:none}
   .journal{grid-template-columns:1fr 1fr}
@@ -867,6 +869,9 @@ input,select,textarea{font:inherit;color:inherit}
   .steps{display:none}
 }
 @media (max-width:640px){
+  .finder{padding:20px 16px}
+  .finder__row{flex-wrap:wrap;gap:10px}
+  .finder__row .seg button{padding:0 12px}
   .header.is-mini .header__in{top:8px;width:calc(100% - 16px);height:50px;padding:0 4px 0 6px}
   .logo{font-size:15px;gap:6px}
   .logo img{width:30px;height:30px}
