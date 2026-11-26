@@ -153,6 +153,7 @@
       </nav>
       <div class="header__right">
         <button class="header__trade" data-act="trade">Оптовикам</button>
+        <button class="icon-btn header__lang" data-act="lang" data-lang="en" aria-label="English version">EN</button>
         <button class="icon-btn" data-act="search" aria-label="Поиск">${icon('search')}</button>
         <a class="icon-btn" href="#/catalog/fav" aria-label="Избранное">${icon('heart')}<span class="badge-count" id="favCount"></span></a>
         <button class="icon-btn" data-act="account" aria-label="Профиль">${icon('user')}</button>
@@ -1199,7 +1200,7 @@
   function renderMnav() {
     $('#mnav').innerHTML = `<div class="mnav__top"><a class="logo" href="#/"><img src="assets/img/logo.png" alt=""><b>Скороход<span>·Мода</span></b></a><button class="icon-btn" data-act="mnav-close" aria-label="Закрыть">${icon('close')}</button></div>
       <a href="#/catalog">Каталог</a><div class="sub">${CATS.map(c => `<a href="#/catalog/${c.id}">${c.name}</a>`).join('')}</div>
-      <a href="#/catalog/new">Новинки</a><a href="#/catalog/fav">Избранное</a><a href="#/cart">Корзина</a><button class="lnk" data-scroll="finder">Подбор размера</button><a href="#/cjm">CJM и сценарии</a>
+      <a href="#/catalog/new">Новинки</a><a href="#/catalog/fav">Избранное</a><a href="#/cart">Корзина</a><button class="lnk" data-scroll="finder">Подбор размера</button><a href="#/cjm">CJM и сценарии</a><button class="lnk" data-act="lang" data-lang="en">English version</button>
       <div class="mnav__foot"><button data-act="trade" style="text-align:left">Оптовикам и организациям →</button><span>+7 (812) 329-44-35</span><span>hello@skorohod-moda.ru</span></div>`;
   }
 
@@ -1387,6 +1388,7 @@
     if (act === 'mnav-close') { closeMnav(); return; }
     if (act === 'announce-close') { S.announce = false; persist(); $('#announce').classList.add('is-hidden'); return; }
     if (act === 'trade') { e.preventDefault(); closeMnav(); tradeToast(); return; }
+    if (act === 'lang') { const l = a.dataset.lang; try { localStorage.setItem('skm-lang', l); } catch (er) { /* */ } location.href = location.pathname + '?lang=' + l + location.hash; return; }
     if (act === 'account') { toast({ text: 'Вход по номеру телефона', sub: 'Код из SMS, без пароля. В прототипе профиль создаётся после заказа' }); return; }
     if (act === 'journal') { e.preventDefault(); toast({ text: 'Журнал — вне рамок прототипа', sub: 'Статьи переносятся с текущего сайта' }); return; }
     if (act === 'clear-size' || act === 'reset-size-filter') { S.mySize = null; persist(); route(); return; }
@@ -1434,7 +1436,6 @@
 
   /* ------------------------------------------------------------------ boot */
   ensureCartBinding();
-  renderProto();
   window.addEventListener('hashchange', route);
   route();
 })();

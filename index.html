@@ -8,8 +8,8 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#FBF7EF">
 <link rel="icon" href="assets/img/logo.png">
-<link rel="stylesheet" href="assets/fonts.css?v=25">
-<link rel="stylesheet" href="assets/styles.css?v=25">
+<link rel="stylesheet" href="assets/fonts.css?v=26">
+<link rel="stylesheet" href="assets/styles.css?v=26">
 </head>
 <body>
 
@@ -66,7 +66,23 @@
 
 <div class="proto" id="proto"></div>
 
-<script src="assets/data.js?v=25"></script>
-<script src="assets/app.js?v=25"></script>
+<script>
+/* язык: ?lang=en|ru → сохранённый выбор → русский */
+(function () {
+  var q = new URLSearchParams(location.search).get('lang'), l = q;
+  try { if (!l) l = localStorage.getItem('skm-lang'); } catch (e) { /* private mode */ }
+  l = l === 'en' ? 'en' : 'ru';
+  try { localStorage.setItem('skm-lang', l); } catch (e) { /* */ }
+  window.SKM_LANG = l;
+  if (l === 'en') {
+    document.documentElement.lang = 'en';
+    document.title = 'Skorokhod·Moda — redesign concept';
+    var d = document.querySelector('meta[name="description"]');
+    if (d) d.content = 'Redesign concept for Skorokhod·Moda, a women\'s leather footwear brand from Saint Petersburg: home page, quick view, cart and checkout. Test assignment, not the official website.';
+  }
+  var v = '26', f = l === 'en' ? ['data.en', 'app.en'] : ['data', 'app'];
+  document.write(f.map(function (n) { return '<script src="assets/' + n + '.js?v=' + v + '"><\/script>'; }).join(''));
+})();
+</script>
 </body>
 </html>
